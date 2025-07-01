@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TomWins | Ürün Detay</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-detail-container {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(37,99,235,0.08);
+            display: flex;
+            gap: 2.5rem;
+            padding: 2.5rem 2rem;
+            flex-wrap: wrap;
+        }
+        .product-gallery {
+            flex: 1 1 350px;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .gallery-main {
+            width: 340px;
+            height: 260px;
+            border-radius: 12px;
+            background: #f8fafc;
+            object-fit: contain;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+            display: block;
+            margin: 0 auto;
+        }
+        .gallery-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .gallery-arrow {
+            pointer-events: auto;
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.7rem;
+            color: #2563eb;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+            opacity: 0.92;
+        }
+        .gallery-arrow:hover {
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(255,152,0,0.18);
+        }
+        .gallery-arrows .gallery-arrow {
+            position: relative;
+            top: -50%;
+        }
+        .gallery-arrows .gallery-arrow:active {
+            transform: scale(0.95);
+        }
+        .gallery-thumbs {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .gallery-thumb {
+            width: 60px;
+            height: 45px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: border 0.2s;
+        }
+        .gallery-thumb.active {
+            border: 2px solid #2563eb;
+        }
+        .product-detail-info {
+            flex: 1 1 350px;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            justify-content: center;
+        }
+        .product-detail-info h2 {
+            color: #2563eb;
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+        .product-detail-meta {
+            font-size: 0.95rem;
+            color: #888;
+            margin-bottom: 0.1rem;
+        }
+        .product-detail-row-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.3rem;
+        }
+        .product-detail-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #22223b;
+            margin-bottom: 0;
+        }
+        .product-detail-tags {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 0;
+        }
+        .product-detail-desc {
+            color: #444;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        .product-detail-buy {
+            margin-top: 1.5rem;
+        }
+        .product-detail-buy button {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem 2.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: not-allowed;
+            opacity: 0.7;
+            transition: background 0.2s;
+        }
+        @media (max-width: 900px) {
+            .product-detail-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+                padding: 1.5rem 0.5rem;
+            }
+            .product-gallery, .product-detail-info {
+                min-width: 0;
+                width: 100%;
+            }
+            .gallery-main {
+                width: 100%;
+                max-width: 340px;
+            }
+            .gallery-arrows {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="https://dummyimage.com/60x40/2563eb/fff&text=TW" alt="TomWins Logo" class="logo-img">
+                <span class="brand">TomWins</span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="index.html#products">Ürünler</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="product-detail-container">
+            <div class="product-gallery">
+                <div class="gallery-arrows">
+                    <button class="gallery-arrow" id="arrow-left" title="Önceki"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 19L9.5 12L15.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="gallery-arrow" id="arrow-right" title="Sonraki"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.5 5L14.5 12L8.5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+                <img src="" alt="Ürün" class="gallery-main" id="main-img">
+                <div class="gallery-thumbs" id="thumbs"></div>
+            </div>
+            <div class="product-detail-info">
+                <h2 id="detail-name">TomWins</h2>
+                <div class="product-detail-meta">
+                    <span class="product-category" id="detail-category"></span> · <span class="product-color" id="detail-color"></span>
+                </div>
+                <div class="product-detail-row-flex">
+                    <div class="product-detail-price" id="detail-price"></div>
+                    <div class="product-detail-tags">
+                        <span class="tag age" id="detail-age"></span>
+                        <span class="tag gender" id="detail-gender"></span>
+                    </div>
+                </div>
+                <div class="product-detail-desc" id="detail-desc"></div>
+                <div class="product-detail-buy">
+                    <button disabled>Sepete Ekle (Yakında)</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TomWins. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+    <script src="js.js"></script>
+    <script>
+    function loadProductsFromAdmin() {
+        const savedProducts = localStorage.getItem('tomwins_products_public');
+        if (savedProducts) {
+            return JSON.parse(savedProducts);
+        }
+        return null;
+    }
+
+    function createDefaultProducts() {
+        const shoeImageList = [
+            "1194207_SSRT1907CİLTF_4.jpg","1194208_SSRT1907CİLTF_6.jpg","1194209_SSRT1907CİLTF_10.jpg","1194210_SSRT1907CİLTF_8.jpg","1194211_SSRT1907CİLTF_11.jpg","1194212_SSRT1907CİLTF_3.jpg","1194213_SSRT1907CİLTF_9.jpg","1194214_SSRT1907CİLTF_5.jpg","1194215_SSRT1907CİLTF_1.jpg","1194216_SSRT1907CİLTF_2.jpg","1195404_TOMWS1017BOTP_120.jpg","1195404_TOMWS1017BOTP_121.jpg","1195404_TOMWS1017BOTP_122.jpg","1195407_TOMWS1017BOTP_117.jpg","1195407_TOMWS1017BOTP_118.jpg","1195407_TOMWS1017BOTP_119.jpg","1195411_TOMWS1017BOTF_114.jpg","1195411_TOMWS1017BOTF_115.jpg","1195411_TOMWS1017BOTF_116.jpg","1195412_TOMWS1017BOTF_111.jpg","1195412_TOMWS1017BOTF_112.jpg","1195412_TOMWS1017BOTF_113.jpg","1195413_TOMWS1017BOTF_1.jpg","1195413_TOMWS1017BOTF_2.jpg","1195413_TOMWS1017BOTF_3.jpg","1195414_TOMWS1017BOTF_4.jpg","1195414_TOMWS1017BOTF_5.jpg","1195414_TOMWS1017BOTF_6.jpg","1195415_TOMWS1017BOTF_108.jpg","1195415_TOMWS1017BOTF_109.jpg"
+        ];
+        const kategoriList = ["Sportswear","Originals","Yürüyüş","TERREX"];
+        const renkList = ["3 renk","6 renk","2 renk","5 renk"];
+        const fiyatList = [2749, 2249, 1999, 2349, 2929, 1899, 2599, 1649];
+        const products = [];
+        
+        for(let i=0; i<30; i++) {
+            products.push({
+                model: `${i+1}`,
+                name: `TomWins Model ${i+1}`,
+                age: ["0-2 Yaş","3-6 Yaş","7-12 Yaş"][i%3],
+                gender: ["Unisex","Kız","Erkek"][i%3],
+                desc: `Bu model ${i+1} için açıklama örneği.`,
+                image: shoeImageList[i % shoeImageList.length],
+                price: fiyatList[i%fiyatList.length],
+                category: kategoriList[i%kategoriList.length],
+                color: renkList[i%renkList.length]
+            });
+        }
+        return products;
+    }
+
+    const products = loadProductsFromAdmin() || createDefaultProducts();
+
+    function getModelFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('model');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let model = getModelFromUrl();
+        const product = products.find(p => p.model === model);
+        const modelImages = product.image.split(',').map(img => img.trim());
+        let current = 0;
+        
+        function showImage(idx) {
+            const mainImg = document.getElementById('main-img');
+            if (modelImages.length > 0) {
+                const imageData = modelImages[idx];
+                if (imageData.startsWith('data:')) {
+                    mainImg.src = imageData;
+                } else {
+                    mainImg.src = 'images/' + imageData;
+                }
+                mainImg.alt = product.name;
+            } else {
+                mainImg.src = 'https://dummyimage.com/340x260/ff9800/fff&text=TomWins';
+            }
+        }
+
+        document.getElementById('detail-name').textContent = product ? product.name : 'TomWins';
+        document.getElementById('detail-age').textContent = product ? product.age : '';
+        document.getElementById('detail-gender').textContent = product ? product.gender : '';
+        document.getElementById('detail-desc').textContent = product ? product.desc : '';
+        document.getElementById('detail-category').textContent = product ? product.category : '';
+        document.getElementById('detail-color').textContent = product ? product.color : '';
+        document.getElementById('detail-price').textContent = product ? product.price.toLocaleString() + ' TL' : '';
+        showImage(current);
+        
+        document.getElementById('arrow-left').onclick = function() {
+            if (modelImages.length === 0) return;
+            current = (current - 1 + modelImages.length) % modelImages.length;
+            showImage(current);
+        };
+        document.getElementById('arrow-right').onclick = function() {
+            if (modelImages.length === 0) return;
+            current = (current + 1) % modelImages.length;
+            showImage(current);
+        };
+        document.getElementById('thumbs').innerHTML = '';
+    });
+    </script>
+</body>
+</html> 

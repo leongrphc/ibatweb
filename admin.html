@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TomWins Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="https://dummyimage.com/60x40/2563eb/fff&text=TW" alt="TomWins Logo" class="logo-img">
+                <span class="brand">TomWins Admin</span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Siteyi Görüntüle</a></li>
+                    <li><a href="#products">Ürün Yönetimi</a></li>
+                    <li><a href="#stats">İstatistikler</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <section class="dashboard-stats">
+                <h1>Admin Paneli</h1>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="total-products">0</h3>
+                        <p>Toplam Ürün</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-images">0</h3>
+                        <p>Toplam Görsel</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="categories-count">0</h3>
+                        <p>Kategori</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="avg-price">0 TL</h3>
+                        <p>Ortalama Fiyat</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="products" class="product-management">
+                <div class="section-header">
+                    <h2>Ürün Yönetimi</h2>
+                    <button class="btn-primary" id="add-product-btn">+ Yeni Ürün Ekle</button>
+                </div>
+
+                <!-- Add/Edit Product Form -->
+                <div class="product-form-container" id="product-form-container" style="display: none;">
+                    <form id="product-form" class="product-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-name">Ürün Adı</label>
+                                <input type="text" id="product-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-model">Model Kodu</label>
+                                <input type="text" id="product-model" name="model" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-category">Kategori</label>
+                                <select id="product-category" name="category" required>
+                                    <option value="">Kategori Seçin</option>
+                                    <option value="Sportswear">Sportswear</option>
+                                    <option value="Originals">Originals</option>
+                                    <option value="Yürüyüş">Yürüyüş</option>
+                                    <option value="TERREX">TERREX</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-color">Renk Seçenekleri</label>
+                                <input type="text" id="product-color" name="color" placeholder="örn: 3 renk" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-age">Yaş Grubu</label>
+                                <select id="product-age" name="age" required>
+                                    <option value="">Yaş Grubu Seçin</option>
+                                    <option value="0-2 Yaş">0-2 Yaş</option>
+                                    <option value="3-6 Yaş">3-6 Yaş</option>
+                                    <option value="7-12 Yaş">7-12 Yaş</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-gender">Cinsiyet</label>
+                                <select id="product-gender" name="gender" required>
+                                    <option value="">Cinsiyet Seçin</option>
+                                    <option value="Unisex">Unisex</option>
+                                    <option value="Kız">Kız</option>
+                                    <option value="Erkek">Erkek</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-price">Fiyat (TL)</label>
+                                <input type="number" id="product-price" name="price" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-image">Ana Görsel</label>
+                                <div class="image-selection">
+                                    <select id="product-image" name="image">
+                                        <option value="">Görsel Seçin</option>
+                                    </select>
+                                    <div class="image-upload-section">
+                                        <span class="upload-divider">veya</span>
+                                        <div class="upload-area" id="upload-area">
+                                            <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                                            <div class="upload-content">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span>Resim Yükle</span>
+                                            </div>
+                                        </div>
+                                        <div class="upload-preview" id="upload-preview" style="display: none;">
+                                            <img id="preview-image" src="" alt="Önizleme">
+                                            <button type="button" id="remove-upload" class="btn-remove">×</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-desc">Açıklama</label>
+                            <textarea id="product-desc" name="desc" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Kaydet</button>
+                            <button type="button" class="btn-secondary" id="cancel-btn">İptal</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="products-table-container">
+                    <div class="table-header">
+                        <h3>Mevcut Ürünler</h3>
+                        <div class="table-actions">
+                            <input type="text" id="search-products" placeholder="Ürün ara..." class="search-input">
+                            <select id="filter-category" class="filter-select">
+                                <option value="">Tüm Kategoriler</option>
+                                <option value="Sportswear">Sportswear</option>
+                                <option value="Originals">Originals</option>
+                                <option value="Yürüyüş">Yürüyüş</option>
+                                <option value="TERREX">TERREX</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="products-table" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Görsel</th>
+                                    <th>Ürün Adı</th>
+                                    <th>Model</th>
+                                    <th>Kategori</th>
+                                    <th>Yaş/Cinsiyet</th>
+                                    <th>Fiyat</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TomWins Admin Panel. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <div id="confirm-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Onay</h3>
+            <p id="confirm-message">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</p>
+            <div class="modal-actions">
+                <button id="confirm-yes" class="btn-danger">Evet</button>
+                <button id="confirm-no" class="btn-secondary">Hayır</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html> 

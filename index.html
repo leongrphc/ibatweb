@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TomWins | Çocuk Ayakkabıları</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Üst Menü ve Logo -->
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="https://dummyimage.com/60x40/2563eb/fff&text=TW" alt="TomWins Logo" class="logo-img">
+                <span class="brand">TomWins</span>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Ana Sayfa</a></li>
+                    <li><a href="#products">Ürünler</a></li>
+                    <li><a href="about.html">Hakkımızda</a></li>
+                    <li><a href="contact.html">İletişim</a></li>
+                    <li><a href="admin.html" style="color: #ff9800; font-weight: 600;">Admin Panel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+  
+    <section class="slider-hero">
+        <div class="slider-container">
+            <div class="slider-left">
+                <h2 class="slider-title">YENİ SEZON ÜRÜNLERİNDE<br>DEV İNDİRİM</h2>
+                <p class="slider-desc">Son çıkan modellerimizi hızla sizinle buluşturuyoruz.<br><span class="slider-bold">özel indirimler sizlerle.</span></p>
+                <a href="#products" class="slider-btn">ALIŞVERİŞE BAŞLA</a>
+               
+            </div>
+            <div class="slider-right">
+                <button class="slider-arrow left" id="sliderPrev">&#8592;</button>
+                <div class="slider-images">
+                    <img src="slider/1.jpg" class="slider-img active" alt="Slider 1">
+                    <img src="slider/2.jpg" class="slider-img" alt="Slider 2">
+                    <img src="slider/3.jpg" class="slider-img" alt="Slider 3">
+                    <img src="slider/4.jpg" class="slider-img" alt="Slider 4">
+                    <img src="slider/5.jpg" class="slider-img" alt="Slider 5">
+                </div>
+                <button class="slider-arrow right" id="sliderNext">&#8594;</button>
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
+                    <span class="dot" data-index="3"></span>
+                    <span class="dot" data-index="4"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+
+    <!-- Filtreler ve Arama -->
+    <section class="filters-bar">
+        <div class="container filters-content">
+            <button class="filters-toggle" id="filtersToggle">Filtreler &#9660;</button>
+            <div class="filters closed" id="filtersPanel">
+                <select>
+                    <option>Yaş Grubu</option>
+                    <option>0-2 Yaş</option>
+                    <option>3-6 Yaş</option>
+                    <option>7-12 Yaş</option>
+                </select>
+                <select>
+                    <option>Cinsiyet</option>
+                    <option>Kız</option>
+                    <option>Erkek</option>
+                    <option>Unisex</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Ürün ara...">
+                <button>🔍</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ürün Grid -->
+    <main>
+        <section id="products" class="product-list">
+            <div class="container">
+                <h2>Ürünlerimiz</h2>
+                <div class="products-grid">
+                    <!-- Ürün Kartı 1 -->
+                    <div class="product-card">
+                        <img src="https://dummyimage.com/300x200/ff9800/fff&text=Ayakkabı+1" alt="Ayakkabı 1">
+                        <div class="product-info">
+                            <h3>TomWins Renkli Sneaker</h3>
+                            <div class="product-tags">
+                                <span class="tag age">3-6 Yaş</span>
+                                <span class="tag gender">Unisex</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, çocuklar için özel tasarım.</p>
+                            <button class="buy-btn" disabled>Sepete Ekle (Yakında)</button>
+                        </div>
+                    </div>
+                    <!-- Ürün Kartı 2 -->
+                    <div class="product-card">
+                        <img src="https://dummyimage.com/300x200/2563eb/fff&text=Ayakkabı+2" alt="Ayakkabı 2">
+                        <div class="product-info">
+                            <h3>TomWins Hafif Spor</h3>
+                            <div class="product-tags">
+                                <span class="tag age">7-12 Yaş</span>
+                                <span class="tag gender">Erkek</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, nefes alabilen kumaş.</p>
+                            <button class="buy-btn" disabled>Sepete Ekle (Yakında)</button>
+                        </div>
+                    </div>
+                    <!-- Ürün Kartı 3 -->
+                    <div class="product-card">
+                        <img src="https://dummyimage.com/300x200/10b981/fff&text=Ayakkabı+3" alt="Ayakkabı 3">
+                        <div class="product-info">
+                            <h3>TomWins Mini Klasik</h3>
+                            <div class="product-tags">
+                                <span class="tag age">0-2 Yaş</span>
+                                <span class="tag gender">Kız</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, yumuşak taban.</p>
+                            <button class="buy-btn" disabled>Sepete Ekle (Yakında)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 TomWins. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="js.js"></script>
+</body>
+</html>
