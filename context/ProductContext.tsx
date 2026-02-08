@@ -160,4 +160,5 @@ export const defaultProduct: Omit<Product, "id" | "createdAt" | "updatedAt"> = {
   tags: [],
   isFeatured: false,
   isNewArrival: true,
+  isOnSale: false,
 };
