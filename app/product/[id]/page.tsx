@@ -52,7 +52,7 @@ export default function ProductDetailPage({
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <main className="flex-1 flex items-center justify-center">
+        <main id="main-content" className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-neutral-600">Yükleniyor...</p>
@@ -68,7 +68,7 @@ export default function ProductDetailPage({
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <main className="flex-1 flex items-center justify-center">
+        <main id="main-content" className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <svg
               className="w-16 h-16 mx-auto text-neutral-300 mb-4"
@@ -125,7 +125,7 @@ export default function ProductDetailPage({
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         {/* Breadcrumb */}
         <div className="border-b border-neutral-100">
           <div className="container-custom py-4">

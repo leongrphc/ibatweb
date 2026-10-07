@@ -17,6 +17,7 @@ export default function ShopPage() {
   // Get URL parameters
   const categoryParam = searchParams.get("category") as SizeCategory | null;
   const filterParam = searchParams.get("filter");
+  const query = (searchParams.get("q") || "").trim();
 
   const [selectedCategories, setSelectedCategories] = useState<SizeCategory[]>(
     [],
@@ -42,7 +43,7 @@ export default function ShopPage() {
 
     if (filterParam === "new") {
       setSortBy("newest");
-    } else if (filterParam === "sale" || filterParam === "featured") {
+    } else if (filterParam === "sale") {
       setSortBy("discount");
     } else {
       setSortBy("featured");
@@ -57,15 +58,42 @@ export default function ShopPage() {
     );
   };
 
+  const salePrice = (product: (typeof products)[number]) =>
+    Math.round(
+      product.retailPrice *
+        (1 -
+          (product.isOnSale
+            ? Math.min(100, Math.max(0, product.discountPercent || 0))
+            : 0) /
+            100),
+    );
+
   // Filter products based on selected filters
   const filteredProducts = useMemo(() => {
     let filtered = [...products];
+    if (query) {
+      const term = query.toLocaleLowerCase("tr-TR");
+      filtered = filtered.filter((product) =>
+        [
+          product.name,
+          product.brand,
+          ...product.category,
+          ...product.colors.map((color) => color.name),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLocaleLowerCase("tr-TR")
+          .includes(term),
+      );
+    }
 
     // Apply URL filter param first
     if (filterParam === "new") {
       filtered = filtered.filter((product) => product.isNewArrival);
-    } else if (filterParam === "sale" || filterParam === "featured") {
+    } else if (filterParam === "sale") {
       filtered = filtered.filter((product) => product.isOnSale);
+    } else if (filterParam === "featured") {
+      filtered = filtered.filter((product) => product.isFeatured);
     }
 
     if (selectedCategories.length > 0) {
@@ -90,16 +118,16 @@ export default function ShopPage() {
 
     filtered = filtered.filter(
       (product) =>
-        product.retailPrice >= priceRange[0] &&
-        product.retailPrice <= priceRange[1],
+        salePrice(product) >= priceRange[0] &&
+        salePrice(product) <= priceRange[1],
     );
 
     switch (sortBy) {
       case "price-low":
-        filtered.sort((a, b) => a.retailPrice - b.retailPrice);
+        filtered.sort((a, b) => salePrice(a) - salePrice(b));
         break;
       case "price-high":
-        filtered.sort((a, b) => b.retailPrice - a.retailPrice);
+        filtered.sort((a, b) => salePrice(b) - salePrice(a));
         break;
       case "newest":
         filtered.sort(
@@ -109,7 +137,9 @@ export default function ShopPage() {
         break;
       case "discount":
         filtered.sort(
-          (a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0),
+          (a, b) =>
+            (b.isOnSale ? b.discountPercent || 0 : 0) -
+            (a.isOnSale ? a.discountPercent || 0 : 0),
         );
         break;
       case "featured":
@@ -128,13 +158,17 @@ export default function ShopPage() {
     priceRange,
     sortBy,
     filterParam,
+    query,
   ]);
 
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <main className="flex-1 flex items-center justify-center">
+        <main
+          id="main-content"
+          className="flex-1 flex items-center justify-center"
+        >
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-neutral-600">Yükleniyor...</p>
@@ -181,7 +215,8 @@ export default function ShopPage() {
     selectedSizes.length +
     selectedGenders.length +
     (filterParam ? 1 : 0) +
-    (categoryParam ? 1 : 0);
+    (query ? 1 : 0) +
+    (priceRange[1] < 50000 ? 1 : 0);
 
   const FilterSection = ({
     title,
@@ -196,6 +231,7 @@ export default function ShopPage() {
       <button
         onClick={() => toggleFilter(name)}
         className="filter-title w-full"
+        aria-expanded={expandedFilters.includes(name)}
       >
         <span>{title}</span>
         <svg
@@ -311,6 +347,7 @@ export default function ShopPage() {
       <FilterSection title="Fiyat Aralığı" name="price">
         <div className="space-y-4">
           <input
+            aria-label="En yüksek fiyat"
             type="range"
             min="0"
             max="50000"
@@ -332,6 +369,19 @@ export default function ShopPage() {
 
   // Dynamic page title and description based on filters
   const getPageInfo = () => {
+    if (query)
+      return {
+        title: `“${query}” için sonuçlar`,
+        description:
+          "Aramanızı kategori ve numara filtreleriyle daraltabilirsiniz.",
+        breadcrumb: "Arama sonuçları",
+      };
+    if (filterParam === "featured")
+      return {
+        title: "Öne çıkanlar",
+        description: "Koleksiyondan sizin için seçtiklerimiz",
+        breadcrumb: "Öne çıkanlar",
+      };
     if (filterParam === "new") {
       return {
         title: "Yeni Gelenler",
@@ -339,7 +389,7 @@ export default function ShopPage() {
         breadcrumb: "Yeni Gelenler",
       };
     }
-    if (filterParam === "sale" || filterParam === "featured") {
+    if (filterParam === "sale") {
       return {
         title: "İndirimli Ürünler",
         description: "Kaçırılmayacak fırsatlar ve indirimler",
@@ -384,7 +434,7 @@ export default function ShopPage() {
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="flex-1">
+      <main id="main-content" className="flex-1 catalog-page">
         {/* Breadcrumb */}
         <div className="border-b border-neutral-100">
           <div className="container-custom py-4">
@@ -414,7 +464,7 @@ export default function ShopPage() {
           <div className="container-custom py-8">
             <div className="flex items-center gap-3 mb-2">
               {filterParam === "new" && <span className="badge-new">YENİ</span>}
-              {(filterParam === "sale" || filterParam === "featured") && (
+              {filterParam === "sale" && (
                 <span className="badge-sale">İNDİRİM</span>
               )}
               <h1 className="text-3xl md:text-4xl font-bold text-primary">
@@ -479,6 +529,7 @@ export default function ShopPage() {
                     Sırala:
                   </span>
                   <select
+                    aria-label="Ürünleri sırala"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                     className="input py-2 pr-10 pl-4 text-sm min-w-[180px]"
@@ -492,6 +543,11 @@ export default function ShopPage() {
                 </div>
               </div>
 
+              {activeFilterCount > 0 && (
+                <button onClick={clearFilters} className="text-link mb-4">
+                  Tüm filtreleri temizle ×
+                </button>
+              )}
               {/* Active Filters Pills */}
               {activeFilterCount > 0 && (
                 <div className="flex flex-wrap gap-2 mb-6">
@@ -624,6 +680,7 @@ export default function ShopPage() {
                 <h3 className="font-semibold text-lg">Filtreler</h3>
                 <button
                   onClick={() => setShowMobileFilters(false)}
+                  aria-label="Filtreleri kapat"
                   className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
                 >
                   <svg
