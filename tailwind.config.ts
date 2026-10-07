@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         // Primary - Pure black & white for editorial feel
         primary: {
-          DEFAULT: "#000000",
+          DEFAULT: "#172c43",
           50: "#f7f7f7",
           100: "#e3e3e3",
           200: "#c8c8c8",
@@ -25,7 +25,7 @@ const config: Config = {
         },
         // Accent - Vibrant orange for CTAs
         accent: {
-          DEFAULT: "#FF5722",
+          DEFAULT: "#b84220",
           50: "#fff3e0",
           100: "#ffe0b2",
           200: "#ffcc80",
