@@ -21,7 +21,7 @@ npm run deploy
 
 `npm run build:cloudflare` önce Next.js derlemesini doğrular, ardından `.open-next/` altında Worker ve statik dosyaları hazırlar. OpenNext sürümü mevcut Next.js 14 uygulamasıyla uyumlu olacak şekilde sabitlenmiştir. Görseller mevcut dosyalardan doğrudan sunulur. `scripts/prepare-worker.mjs`, adaptörün boş çalışma dizinini Cloudflare ortamındaki `/bundle` dizinine dönüştürür.
 
-Windows üzerinde derleme için Git for Windows araçlarının (`C:/Program Files/Git/usr/bin`) PATH içinde olması gerekebilir. Linux üzerinde standart npm komutları kullanılabilir.
+Windows üzerinde derleme için Git for Windows araçlarının (`C:/Program Files/Git/usr/bin`) PATH içinde olması gerekebilir. Linux üzerinde standart npm komutları kullanılabilir. Yayın komutu, hazırlanmış Worker paketini Wrangler üzerinden doğrudan gönderir.
 
 Ürünler, duyurular ve mevcut yönetici oturumu tarayıcıdaki localStorage üzerinden çalışır. Admin değişiklikleri yalnızca aynı tarayıcıda saklanır; ziyaretçiler arasında paylaşım için sunucu/veritabanı entegrasyonu gerekir.
 
