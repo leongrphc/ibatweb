@@ -557,13 +557,14 @@
 }
 .category-photo {
   position: relative;
-  height: 190px;
+  aspect-ratio: 10 / 7;
+  margin-bottom: 10px;
   overflow: hidden;
   mix-blend-mode: multiply;
 }
 .category-photo img {
   object-fit: cover;
-  object-position: center 67%;
+  object-position: center bottom;
 }
 .category-tile-bottom h3 {
   font-size: 24px;
@@ -690,9 +691,6 @@
   .category-tile {
     padding: 14px;
   }
-  .category-photo {
-    height: 120px;
-  }
   .category-tile-bottom {
     flex-wrap: wrap;
     gap: 6px;
@@ -724,13 +722,6 @@
   }
   .category-tile {
     padding: 18px 22px;
-  }
-  .category-photo {
-    height: 170px;
-  }
-  .category-photo img {
-    object-fit: contain;
-    transform: scale(1.45) translateY(-18px);
   }
 }
 @media (prefers-reduced-motion: reduce) {
