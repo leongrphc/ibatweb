@@ -51,16 +51,16 @@ export default function AnnouncementsPage() {
 
   const handleMoveUp = (index: number) => {
     if (index === 0) return;
-    const current = announcements[index];
-    const prev = announcements[index - 1];
+    const current = sortedAnnouncements[index];
+    const prev = sortedAnnouncements[index - 1];
     updateAnnouncement(current.id, { order: prev.order });
     updateAnnouncement(prev.id, { order: current.order });
   };
 
   const handleMoveDown = (index: number) => {
     if (index === announcements.length - 1) return;
-    const current = announcements[index];
-    const next = announcements[index + 1];
+    const current = sortedAnnouncements[index];
+    const next = sortedAnnouncements[index + 1];
     updateAnnouncement(current.id, { order: next.order });
     updateAnnouncement(next.id, { order: current.order });
   };

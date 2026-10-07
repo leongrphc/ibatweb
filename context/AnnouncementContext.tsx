@@ -82,7 +82,7 @@ export function AnnouncementProvider({
       id: Date.now().toString(),
       text,
       isActive: true,
-      order: announcements.length + 1,
+      order: Math.max(0, ...announcements.map((announcement) => announcement.order)) + 1,
     };
     setAnnouncements((prev) => [...prev, newAnnouncement]);
   };

@@ -760,20 +760,11 @@
   left: 8px;
 }
 .store-announcement {
+  position: relative;
+  overflow: hidden;
   background: var(--store-ink);
   color: white;
   font-size: 11px;
-}
-.store-announcement > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.store-announcement span {
-  color: #c6d7e6;
 }
 .header-main {
   min-height: 86px;
@@ -1107,14 +1098,6 @@
   .brand-lockup small {
     font-size: 7px;
   }
-  .store-announcement > div {
-    justify-content: center;
-    text-align: center;
-    font-size: 10px;
-  }
-  .store-announcement span {
-    display: none;
-  }
   .header-search-toggle > span {
     display: none;
   }
@@ -1172,4 +1155,80 @@
 }
 .hero-playback:hover {
   background: #172c430d;
+}
+
+.announcement-track {
+  display: flex;
+  width: max-content;
+  animation: announcement-scroll 36s linear infinite;
+}
+.announcement-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+  min-width: 100vw;
+}
+.announcement-item {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  padding: 9px 28px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.announcement-separator {
+  color: #c6d7e6;
+  font-size: 9px;
+}
+.store-announcement:hover .announcement-track,
+.store-announcement:focus-within .announcement-track,
+.announcement-track-paused {
+  animation-play-state: paused;
+}
+.announcement-motion {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  color: white;
+  background: var(--store-ink);
+  font-size: 12px;
+}
+@keyframes announcement-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 639px) {
+  .announcement-item {
+    font-size: 10px;
+    gap: 32px;
+    padding-inline: 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .announcement-track {
+    animation: none;
+    width: 100%;
+  }
+  .announcement-group {
+    flex-wrap: wrap;
+    min-width: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .announcement-group[aria-hidden="true"],
+  .announcement-motion {
+    display: none;
+  }
+  .announcement-item {
+    white-space: normal;
+    text-align: center;
+    padding: 6px 12px;
+  }
+  .announcement-separator {
+    display: none;
+  }
 }

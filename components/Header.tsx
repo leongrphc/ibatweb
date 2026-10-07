@@ -15,6 +15,7 @@ const navigation = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [announcementsPaused, setAnnouncementsPaused] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const searchButton = useRef<HTMLButtonElement>(null);
@@ -48,10 +49,38 @@ export default function Header() {
       </a>
       {announcements.length > 0 && (
         <div className="store-announcement">
-          <div className="container-custom">
-            <p>{announcements[0].text}</p>
-            <span>Minik adımlara, büyük özen.</span>
+          <div
+            className={`announcement-track ${announcementsPaused ? "announcement-track-paused" : ""}`}
+          >
+            {[0, 1].map((copy) => (
+              <div
+                key={copy}
+                className="announcement-group"
+                aria-hidden={copy === 1}
+              >
+                {announcements.map((announcement) => (
+                  <p key={announcement.id} className="announcement-item">
+                    {announcement.text}
+                    <span aria-hidden="true" className="announcement-separator">
+                      ✦
+                    </span>
+                  </p>
+                ))}
+              </div>
+            ))}
           </div>
+          <button
+            type="button"
+            className="announcement-motion"
+            onClick={() => setAnnouncementsPaused((paused) => !paused)}
+            aria-label={
+              announcementsPaused
+                ? "Duyuruları kaydırmaya devam et"
+                : "Kayan duyuruları duraklat"
+            }
+          >
+            <span aria-hidden="true">{announcementsPaused ? "▶" : "Ⅱ"}</span>
+          </button>
         </div>
       )}
       <div className="container-custom header-main">
