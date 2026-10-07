@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
@@ -10,6 +11,25 @@ import { useProducts } from "@/context/ProductContext";
 
 export default function HomePage() {
   const { products, loading } = useProducts();
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroPaused, setHeroPaused] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    return () => preference.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (heroPaused || reduceMotion) return;
+    const interval = window.setInterval(() => {
+      setHeroIndex((index) => (index + 1) % categories.length);
+    }, 5000);
+    return () => window.clearInterval(interval);
+  }, [heroPaused, reduceMotion]);
   const featured = products.filter((product) => product.isFeatured).slice(0, 4);
   const arrivals = products
     .filter((product) => product.isNewArrival)
@@ -52,23 +72,34 @@ export default function HomePage() {
             </div>
             <div className="hero-stage">
               <span className="stage-caption">OYUNA HAZIR.</span>
-              <div className="hero-orbit" aria-hidden="true" />
-              <Image
-                src="/images/1194215_SSRT1907CİLTF_1.jpg"
-                alt="Pembe detaylı çocuk spor ayakkabısı"
-                fill
-                priority
-                sizes="(max-width: 767px) 100vw, 55vw"
-                className="hero-shoe"
-              />
-              <Link href="/shop?category=BEBE" className="stage-note">
-                <span>Bebe koleksiyonu</span>
-                <strong>
-                  İlk keşiflere eşlik et <span aria-hidden="true">↗</span>
-                </strong>
-              </Link>
+              {categories.map((category, index) => (
+                <Image
+                  key={category.id}
+                  src={category.imageUrl}
+                  alt={category.displayName}
+                  fill
+                  priority={index === 0}
+                  sizes="(max-width: 767px) 100vw, 55vw"
+                  className={`hero-shoe ${index === heroIndex ? "hero-shoe-active" : ""}`}
+                  aria-hidden={index !== heroIndex}
+                />
+              ))}
+              {!reduceMotion && (
+                <button
+                  type="button"
+                  className="hero-playback"
+                  aria-label={
+                    heroPaused
+                      ? "Görsel geçişlerini başlat"
+                      : "Görsel geçişlerini duraklat"
+                  }
+                  onClick={() => setHeroPaused((paused) => !paused)}
+                >
+                  <span aria-hidden="true">{heroPaused ? "▶" : "Ⅱ"}</span>
+                </button>
+              )}
               <span className="stage-size">
-                22–25
+                {categories[heroIndex].sizeRange}
                 <br />
                 <small>NUMARA</small>
               </span>
